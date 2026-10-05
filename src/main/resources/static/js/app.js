@@ -1,6 +1,29 @@
 const statusEl = document.querySelector("#status");
 const dashboard = document.querySelector("#dashboard");
 const iconUrl = icon => `https://openweathermap.org/img/wn/${icon}@2x.png`;
+const themeToggle = document.querySelector("#theme-toggle");
+const themeIcon = document.querySelector("#theme-icon");
+const themeLabel = document.querySelector("#theme-label");
+let automaticTheme = true;
+
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    const night = theme === "night";
+    themeIcon.textContent = night ? "☀" : "☾";
+    themeLabel.textContent = night ? "Day mode" : "Night mode";
+    themeToggle.setAttribute("aria-label", night ? "Switch to day mode" : "Switch to night mode");
+}
+
+function applyAutomaticTheme(sunrise, sunset) {
+    if (!automaticTheme) return;
+    const now = Date.now() / 1000;
+    applyTheme(now < sunrise || now >= sunset ? "night" : "day");
+}
+
+themeToggle.addEventListener("click", () => {
+    automaticTheme = false;
+    applyTheme(document.documentElement.dataset.theme === "night" ? "day" : "night");
+});
 
 function setStatus(message, error = false) {
     statusEl.textContent = message;
@@ -22,6 +45,7 @@ function displayWeather(weather) {
     document.querySelector("#pressure").textContent = `${current.pressure} hPa`;
     document.querySelector("#sunrise").textContent = formatTime(current.sunrise);
     document.querySelector("#sunset").textContent = formatTime(current.sunset);
+    applyAutomaticTheme(current.sunrise, current.sunset);
     document.querySelector("#forecast").innerHTML = weather.forecast.map(day => `
         <article class="forecast-day">
             <time>${day.date}</time>
