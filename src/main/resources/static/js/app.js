@@ -90,16 +90,27 @@ document.querySelector("#search-form").addEventListener("submit", event => {
     requestWeather(`/api/weather/city?name=${encodeURIComponent(city)}`);
 });
 
+document.querySelector("#clear-search").addEventListener("click", () => {
+    document.querySelector("#city-input").value = "";
+    document.querySelector("#city-input").focus();
+});
+
+function loadDefaultCity() {
+    requestWeather("/api/weather/city?name=New%20Delhi");
+}
+
 function detectLocation() {
     if (!navigator.geolocation) {
-        setStatus("Unable to detect your location. Please search for a city manually.", true);
+        setStatus("Location unavailable. Showing New Delhi weather...");
+        loadDefaultCity();
         return;
     }
     navigator.geolocation.getCurrentPosition(
         position => requestWeather(`/api/weather/current?lat=${position.coords.latitude}&lon=${position.coords.longitude}`),
-        error => setStatus(error.code === 1
-            ? "Location access was denied. Search for a city instead."
-            : "Unable to detect your location. Please search for a city manually.", true),
+        () => {
+            setStatus("Location unavailable. Showing New Delhi weather...");
+            loadDefaultCity();
+        },
         { enableHighAccuracy: false, timeout: 10000 }
     );
 }

@@ -15,8 +15,8 @@ body { margin:0; background:var(--cream); color:var(--ink); font-family:"DM Sans
 .eyebrow { color:#ec8a3b; font-size:12px; font-weight:700; letter-spacing:2px; }
 h1 { font-family:"Space Grotesk"; font-size:clamp(40px,6vw,72px); line-height:1.02; margin:12px 0 30px; letter-spacing:-2px; }
 h1 span { color:var(--muted); }
-.search { display:flex; max-width:520px; box-shadow:0 8px 22px #253b5d0c; }
-.search input { flex:1; border:1px solid var(--line); border-right:0; border-radius:10px 0 0 10px; padding:16px 18px; background:var(--input); color:var(--ink); font:inherit; outline:none; }
+.search { display:flex; max-width:620px; box-shadow:0 8px 22px #253b5d0c; }
+.search input { flex:1; min-width:0; border:1px solid var(--line); border-right:0; border-radius:10px 0 0 10px; padding:16px 18px; background:var(--input); color:var(--ink); font:inherit; outline:none; }
 .search input:focus { border-color:var(--accent); }
 button { border:0; border-radius:0 10px 10px 0; padding:0 22px; background:#14213d; color:#fff; font:500 15px inherit; cursor:pointer; }
 button span { color:var(--accent); font-size:20px; margin-left:8px; }
@@ -24,6 +24,8 @@ button span { color:var(--accent); font-size:20px; margin-left:8px; }
 .search button span { color:#ffd166; }
 .search button:hover { background:#1d3158; }
 .search button:active { transform:translateY(1px); }
+.search .clear-button { margin-left:8px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--muted); }
+.search .clear-button:hover { background:var(--card); color:var(--ink); }
 [data-theme="night"] .search button { background:#fff; color:#000; }
 [data-theme="night"] .search button span { color:#ffd166; }
 [data-theme="night"] .search button:hover { background:#f2f4f8; }
@@ -53,4 +55,4 @@ h2 { font:700 21px "Space Grotesk"; margin:0; }
 .sun-times b { color:var(--ink); margin-left:4px; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 @media (max-width:760px) { .shell{padding:20px 16px 40px}.tagline{display:none}.theme-toggle{padding:7px 10px}.theme-toggle span:last-child{display:none}.hero{padding:55px 0 30px}.dashboard{grid-template-columns:1fr}.forecast-grid{gap:5px}.forecast-day{padding:10px 2px}.forecast-day img{width:42px;height:42px} }
-@media (max-width:430px) { .search input{min-width:0}.search button{padding:0 14px}.forecast-day time{font-size:10px}.forecast-day strong{font-size:14px}.current-card,.forecast-panel{padding:22px} }
+@media (max-width:430px) { .search{flex-wrap:wrap;gap:8px;box-shadow:none}.search input{flex-basis:100%;border-right:1px solid var(--line);border-radius:10px}.search button,.search .clear-button{flex:1;min-height:46px;border-radius:10px}.search .clear-button{margin-left:0}.forecast-day time{font-size:10px}.forecast-day strong{font-size:14px}.current-card,.forecast-panel{padding:22px} }
